@@ -1,5 +1,4 @@
 package br.com.inter.view;
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,19 +7,21 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.ImageIcon;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class JProduct extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
 	private JTextField txtNomeDoProduto;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -46,7 +47,7 @@ public class JProduct extends JFrame {
 	 */
 	public JProduct() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 550);
+		setBounds(100, 100, 345, 550);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -54,36 +55,7 @@ public class JProduct extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBounds(350, 11, 624, 489);
-		contentPane.add(panel_1);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(10, 25, 477, 30);
-		panel_1.add(textField);
-		
-		JButton btnNewButton_3 = new JButton("Pesquisar");
-		btnNewButton_3.setForeground(Color.WHITE);
-		btnNewButton_3.setBackground(new Color(0, 128, 128));
-		btnNewButton_3.setBounds(495, 25, 119, 30);
-		panel_1.add(btnNewButton_3);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 66, 604, 393);
-		panel_1.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID", "Nome", "Valor", "Estoque"
-			}
-		));
-		scrollPane.setViewportView(table);
-		
+
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBounds(10, 11, 307, 489);
@@ -119,7 +91,7 @@ public class JProduct extends JFrame {
 		panel.add(lblNewLabel);
 		
 		textField_1 = new JTextField();
-		textField_1.setToolTipText("Nome do produto");
+		textField_1.setToolTipText("Valor do produto");
 		textField_1.setForeground(Color.BLACK);
 		textField_1.setColumns(10);
 		textField_1.setBounds(48, 213, 211, 31);
@@ -131,7 +103,7 @@ public class JProduct extends JFrame {
 		panel.add(lblValor);
 		
 		textField_2 = new JTextField();
-		textField_2.setToolTipText("Nome do produto");
+		textField_2.setToolTipText("Quantidade em estoque");
 		textField_2.setForeground(Color.BLACK);
 		textField_2.setColumns(10);
 		textField_2.setBounds(48, 279, 211, 31);
@@ -146,5 +118,37 @@ public class JProduct extends JFrame {
 		btnNewButton.setForeground(new Color(0, 128, 128));
 		btnNewButton.setBounds(48, 332, 211, 31);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(txtNomeDoProduto.getText() != null && !txtNomeDoProduto.getText().isEmpty()) {
+					if (textField_1.getText() != null && !textField_1.getText().isEmpty()) {
+						if (textField_2.getText() != null && !textField_2.getText().isEmpty()) {
+							try {
+								Connection conn = JConnection.createConnection();
+								if (conn != null) {
+									String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES(?,?,?)";
+									// String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES('alonie','1','1')";
+									PreparedStatement ps = conn.prepareStatement(sqlconsult);
+									ps.setString(1,txtNomeDoProduto.getText().toString());
+									ps.setInt(2,Integer.parseInt(textField_2.getText()));
+									ps.setInt(3,Integer.parseInt(textField_1.getText()));
+									ps.execute();
+									conn.commit();
+									dispose();
+								}
+							}catch (SQLException f) {
+								f.printStackTrace(); // Lida com exceções, se ocorrerem
+							}
+						} else {
+							JOptionPane.showMessageDialog(textField_2, "Quantidade inválida!", "Aviso", JOptionPane.WARNING_MESSAGE);
+						}
+					} else {
+						JOptionPane.showMessageDialog(textField_1, "Valor inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(txtNomeDoProduto, "Nome inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+				}		
+			}
+		});  
 	}
 }

@@ -9,12 +9,12 @@ public class JConnection {
     }
 
     public static Connection createConnection() throws SQLException{
-		String url = "jdbc:mysql://localhost:3306/inter"; //Nome da base de dados
+		String url = "jdbc:mysql://localhost:3306/interdados"; //Nome da base de dados
 		String user = "root"; //nome do usuário do MySQL
 		String password = ""; //senha do MySQL
         Connection conexao = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conexao = DriverManager.getConnection(url, user, password);
             conexao.setAutoCommit(false);
         } catch (SQLException | ClassNotFoundException e) {			

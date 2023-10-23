@@ -98,19 +98,35 @@ public class JLogin extends JFrame {
 		JButton btnNewButton = new JButton("Entrar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(lblNewLabel_1.getText()!=null && !lblNewLabel_1.getText().isEmpty() && lblNewLabel_2.getText()!=null && !lblNewLabel_2.getText().isEmpty()) {
+				if(txtLogin.getText()!=null && !txtLogin.getText().isEmpty() && passwordField.getPassword()!=null && !passwordField.getText().isEmpty()) {
 					try {
 						Connection conn = JConnection.createConnection();
-						String sqlconsult = "SELECT * FROM funcionarios WHERE Usuario=?";
-						PreparedStatement ps = conn.prepareStatement(sqlconsult);
-						ps.setString(1,lblNewLabel_1.getText());
-						ResultSet rs = ps.executeQuery();
-						while(rs.next()){
-							System.out.println(rs.getString("Senha"));
-							// dispose();
-							// JHome jPrincipal = new JHome();
-							// jPrincipal.setLocationRelativeTo(jPrincipal);
-							// jPrincipal.setVisible(true);
+						
+						if (conn != null) {
+							String sqlconsult = "SELECT * FROM funcionarios WHERE Usuario=? AND Senha=?";
+							PreparedStatement ps = conn.prepareStatement(sqlconsult);
+							ps.setString(1,txtLogin.getText());
+							ps.setString(2,String.valueOf(passwordField.getPassword()));
+							ResultSet rs = ps.executeQuery();
+							if (rs != null) {
+								while(rs.next()){
+									if (rs.getInt("isadmin")==1) {
+										dispose();
+										JHomeAdmin jPrincipal = new JHomeAdmin();
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									} else {
+										dispose();
+										JHome jPrincipal = new JHome();
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									}
+										
+									
+								}
+							} else {
+								JOptionPane.showMessageDialog(btnNewButton, "Usuário inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+							}
 						}
 					}catch (SQLException f) {
 						f.printStackTrace(); // Lida com exceções, se ocorrerem

@@ -14,12 +14,18 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class JHome extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTable table;
+	public JTable table;
 	private JTextField textField;
 
 	/**
@@ -42,6 +48,7 @@ public class JHome extends JFrame {
 	 * Create the frame.
 	 */
 	public JHome() {
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 552);
 		contentPane = new JPanel();
@@ -73,6 +80,14 @@ public class JHome extends JFrame {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBounds(48, 173, 211, 31);
 		panel.add(btnNewButton);
+
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JProduct jPrincipal = new JProduct();
+				jPrincipal.setLocationRelativeTo(jPrincipal);
+				jPrincipal.setVisible(true);
+			}
+		});  
 		
 		JButton btnNewButton_1 = new JButton("Editar produto");
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
@@ -112,13 +127,34 @@ public class JHome extends JFrame {
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID", "Nome", "Valor", "Estoque"
+		table.setModel(model);
+		model.addColumn("ID");
+        model.addColumn("Nome");
+        model.addColumn("Estoque");
+        model.addColumn("Valor");
+		
+		try {
+			Connection conn = JConnection.createConnection();
+			if (conn != null) {
+				String sqlconsult = "SELECT * FROM produtos";
+				PreparedStatement ps = conn.prepareStatement(sqlconsult);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					int id = rs.getInt("IDProduto");
+					String nome = rs.getString("NomeProduto");
+					int estoque = rs.getInt("QuantidadeEstoque");
+					int valor = rs.getInt("Valor");
+					model.addRow(new Object[]{id, nome, valor,estoque});
+				}
 			}
-		));
+		}catch (SQLException f) {
+			f.printStackTrace(); // Lida com exceções, se ocorrerem
+		}
+	}
+	public void ClearTable() {
+		table.revalidate();
+        table.repaint();
 	}
 }
