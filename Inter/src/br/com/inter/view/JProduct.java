@@ -57,7 +57,7 @@ public class JProduct extends JFrame {
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("F:\\eclipse-workspace\\Inter\\icons\\interlog_teal64.png"));
+		lblNewLabel_2.setIcon(new ImageIcon("Inter\\icons\\interlog_teal64.png"));
 		lblNewLabel_2.setBounds(121, 392, 64, 64);
 		panel.add(lblNewLabel_2);
 		

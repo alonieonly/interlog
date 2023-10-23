@@ -67,11 +67,19 @@ public class JHomeAdmin extends JFrame {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBounds(48, 165, 211, 31);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JCreateUser jPrincipal = new JCreateUser(isadmin);
+				jPrincipal.setLocationRelativeTo(jPrincipal);
+				jPrincipal.setVisible(true);
+			}
+		});  
 		
 		JButton btnNewButton_5 = new JButton("Registrar produto");
 		btnNewButton_5.setBackground(new Color(0, 128, 128));
 		btnNewButton_5.setForeground(new Color(255, 255, 255));
-		btnNewButton_5.setBounds(48, 173, 211, 31);
+		btnNewButton_5.setBounds(48, 203, 211, 31);
 		panel.add(btnNewButton_5);
 
 		btnNewButton_5.addActionListener(new ActionListener() {
@@ -85,17 +93,33 @@ public class JHomeAdmin extends JFrame {
 		JButton btnNewButton_1 = new JButton("Editar produto");
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBounds(48, 211, 211, 31);
+		btnNewButton_1.setBounds(48, 241, 211, 31);
 		panel.add(btnNewButton_1);
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JEditProduct jPrincipal = new JEditProduct(isadmin);
+				jPrincipal.setLocationRelativeTo(jPrincipal);
+				jPrincipal.setVisible(true);
+			}
+		});  
 		
 		JButton btnNewButton_2 = new JButton("Excluir produto");
 		btnNewButton_2.setBackground(new Color(0, 128, 128));
 		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBounds(48, 249, 211, 31);
+		btnNewButton_2.setBounds(48, 278, 211, 31);
 		panel.add(btnNewButton_2);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JDeleteProduct jPrincipal = new JDeleteProduct(isadmin);
+				jPrincipal.setLocationRelativeTo(jPrincipal);
+				jPrincipal.setVisible(true);
+			}
+		}); 
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("F:\\eclipse-workspace\\Inter\\icons\\interlog_teal64.png"));
+		lblNewLabel_2.setIcon(new ImageIcon("Inter\\icons\\interlog_teal64.png"));
 		lblNewLabel_2.setBounds(121, 359, 64, 64);
 		panel.add(lblNewLabel_2);
 		
@@ -139,7 +163,7 @@ public class JHomeAdmin extends JFrame {
 					String nome = rs.getString("NomeProduto");
 					int estoque = rs.getInt("QuantidadeEstoque");
 					int valor = rs.getInt("Valor");
-					model.addRow(new Object[]{id, nome, valor,estoque});
+					model.addRow(new Object[]{id, nome, estoque,valor});
 				}
 			}
 		}catch (SQLException f) {

@@ -8,10 +8,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class JCreateUser extends JFrame {
 
@@ -19,27 +27,13 @@ public class JCreateUser extends JFrame {
 	private JPanel contentPane;
 	private JTextField UsertextField;
 	private JTextField UsertextField_1;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JCreateUser frame = new JCreateUser();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public Boolean isadmin = false;
 
 	/**
 	 * Create the frame.
 	 */
-	public JCreateUser() {
+	public JCreateUser(Boolean admin) {
+		isadmin = admin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 345, 550);
 		contentPane = new JPanel();
@@ -92,5 +86,56 @@ public class JCreateUser extends JFrame {
 		btnNewButton.setForeground(new Color(0, 128, 128));
 		btnNewButton.setBounds(48, 300, 211, 37);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (UsertextField.getText() != null && !UsertextField.getText().isEmpty()) {
+					if (UsertextField_1.getText() != null && !UsertextField_1.getText().isEmpty()) {
+						try {
+							Connection conn = JConnection.createConnection();
+							if (conn != null) {
+								String sqlCheck = "SELECT * FROM funcionarios WHERE Usuario = ?";
+								PreparedStatement ps2 = conn.prepareStatement(sqlCheck);
+								ps2.setString(1,UsertextField.getText().toString());
+								ResultSet rs = ps2.executeQuery();
+								System.out.println(rs.next());
+								if (rs.next()) {
+									JOptionPane.showMessageDialog(btnNewButton, "Usuário já registrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+								} else {
+									String sqlconsult = "INSERT INTO funcionarios (Usuario,Senha,isadmin) VALUES(?,?,?)";
+									int setadmin = 0;
+									boolean estaMarcado = chckbxNewCheckBox.isSelected();
+									if (estaMarcado) {
+										setadmin = 1;
+									}
+									// String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES('alonie','1','1')";
+									PreparedStatement ps = conn.prepareStatement(sqlconsult);
+									ps.setString(1,UsertextField.getText().toString());
+									ps.setString(2,UsertextField_1.getText().toString());
+									ps.setInt(3,setadmin);
+									ps.execute();
+									conn.commit();
+									dispose();
+									if (isadmin) {
+										JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									} else {
+										JHome jPrincipal = new JHome(isadmin);
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									}
+								}
+							}
+						}catch (SQLException f) {
+							f.printStackTrace(); // Lida com exceções, se ocorrerem
+						}
+					} else {
+						JOptionPane.showMessageDialog(UsertextField_1, "Senha inválida!", "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(UsertextField, "Usuario inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+				}	
+			}
+		});  
 	}
 }

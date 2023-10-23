@@ -7,36 +7,30 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class JDeleteProduct extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JDeleteProduct frame = new JDeleteProduct();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	public Boolean isadmin = false;
 
 	/**
 	 * Create the frame.
 	 */
-	public JDeleteProduct() {
+	public JDeleteProduct(Boolean admin) {
+		isadmin = admin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 345, 550);
 		contentPane = new JPanel();
@@ -76,6 +70,45 @@ public class JDeleteProduct extends JFrame {
 		btnNewButton.setForeground(new Color(0, 128, 128));
 		btnNewButton.setBounds(48, 257, 211, 37);
 		panel.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (textField.getText() != null && !textField.getText().isEmpty()) {
+					try {
+						Connection conn = JConnection.createConnection();
+						if (conn != null) {
+							String sqlCheck = "SELECT * FROM produtos WHERE IDProduto = ?";
+							PreparedStatement ps2 = conn.prepareStatement(sqlCheck);
+							ps2.setInt(1,Integer.parseInt(textField.getText()));
+							ResultSet rs = ps2.executeQuery();
+							if (rs.next()) {
+								String sqlconsult = "DELETE FROM produtos WHERE IDProduto = ?";
+								// String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES('alonie','1','1')";
+								PreparedStatement ps = conn.prepareStatement(sqlconsult);
+								ps.setInt(1,Integer.parseInt(textField.getText()));
+								ps.execute();
+								conn.commit();
+								dispose();
+								if (isadmin) {
+									JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
+									jPrincipal.setLocationRelativeTo(jPrincipal);
+									jPrincipal.setVisible(true);
+								} else {
+									JHome jPrincipal = new JHome(isadmin);
+									jPrincipal.setLocationRelativeTo(jPrincipal);
+									jPrincipal.setVisible(true);
+								}
+							}else {
+								JOptionPane.showMessageDialog(btnNewButton, "ID não encontrado!", "Aviso", JOptionPane.WARNING_MESSAGE);
+							}
+						}
+					}catch (SQLException f) {
+						f.printStackTrace(); // Lida com exceções, se ocorrerem
+					}
+				} else {
+					JOptionPane.showMessageDialog(textField, "ID inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		}); 
 	}
 
 }

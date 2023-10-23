@@ -32,7 +32,6 @@ public class JLogin extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		Boolean isadmin = false;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -159,7 +158,7 @@ public class JLogin extends JFrame {
 		logo_panel.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("C:\\Inter\\icons\\interlog.png"));
+		lblNewLabel_3.setIcon(new ImageIcon("Inter\\icons\\interlog.png"));
 		lblNewLabel_3.setBounds(188, 122, 267, 266);
 		logo_panel.add(lblNewLabel_3);
 		
