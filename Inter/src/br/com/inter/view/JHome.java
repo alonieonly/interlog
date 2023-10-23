@@ -27,28 +27,10 @@ public class JHome extends JFrame {
 	private JPanel contentPane;
 	public JTable table;
 	private JTextField textField;
+	private Boolean isadmin = false;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JHome frame = new JHome();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public JHome() {
-	
+	public JHome(Boolean admin) {
+		isadmin = admin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 552);
 		contentPane = new JPanel();
@@ -83,12 +65,12 @@ public class JHome extends JFrame {
 
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JProduct jPrincipal = new JProduct();
+				dispose();
+				JProduct jPrincipal = new JProduct(isadmin);
 				jPrincipal.setLocationRelativeTo(jPrincipal);
 				jPrincipal.setVisible(true);
 			}
 		});  
-		
 		JButton btnNewButton_1 = new JButton("Editar produto");
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		btnNewButton_1.setForeground(new Color(255, 255, 255));

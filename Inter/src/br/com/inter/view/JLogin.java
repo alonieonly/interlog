@@ -20,7 +20,9 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 
+
 public class JLogin extends JFrame {
+	
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -30,6 +32,7 @@ public class JLogin extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Boolean isadmin = false;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -112,12 +115,12 @@ public class JLogin extends JFrame {
 								while(rs.next()){
 									if (rs.getInt("isadmin")==1) {
 										dispose();
-										JHomeAdmin jPrincipal = new JHomeAdmin();
+										JHomeAdmin jPrincipal = new JHomeAdmin(true);
 										jPrincipal.setLocationRelativeTo(jPrincipal);
 										jPrincipal.setVisible(true);
 									} else {
 										dispose();
-										JHome jPrincipal = new JHome();
+										JHome jPrincipal = new JHome(false);
 										jPrincipal.setLocationRelativeTo(jPrincipal);
 										jPrincipal.setVisible(true);
 									}

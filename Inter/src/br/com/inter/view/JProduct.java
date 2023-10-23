@@ -25,27 +25,10 @@ public class JProduct extends JFrame {
 	private JTextField txtNomeDoProduto;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private Boolean isadmin = false;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JProduct frame = new JProduct();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public JProduct() {
+	public JProduct(Boolean admin) {
+		isadmin = admin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 345, 550);
 		contentPane = new JPanel();
@@ -135,6 +118,15 @@ public class JProduct extends JFrame {
 									ps.execute();
 									conn.commit();
 									dispose();
+									if (isadmin) {
+										JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									} else {
+										JHome jPrincipal = new JHome(isadmin);
+										jPrincipal.setLocationRelativeTo(jPrincipal);
+										jPrincipal.setVisible(true);
+									}
 								}
 							}catch (SQLException f) {
 								f.printStackTrace(); // Lida com exceções, se ocorrerem

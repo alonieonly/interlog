@@ -8,12 +8,23 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
 
 public class JHomeAdmin extends JFrame {
 
@@ -21,27 +32,10 @@ public class JHomeAdmin extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private Boolean isadmin = false;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JHomeAdmin frame = new JHomeAdmin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public JHomeAdmin() {
+	public JHomeAdmin(Boolean admin) {
+		isadmin = admin;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 550);
 		contentPane = new JPanel();
@@ -74,28 +68,36 @@ public class JHomeAdmin extends JFrame {
 		btnNewButton.setBounds(48, 165, 211, 31);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Registrar produto");
+		JButton btnNewButton_5 = new JButton("Registrar produto");
+		btnNewButton_5.setBackground(new Color(0, 128, 128));
+		btnNewButton_5.setForeground(new Color(255, 255, 255));
+		btnNewButton_5.setBounds(48, 173, 211, 31);
+		panel.add(btnNewButton_5);
+
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JProduct jPrincipal = new JProduct(isadmin);
+				jPrincipal.setLocationRelativeTo(jPrincipal);
+				jPrincipal.setVisible(true);
+			}
+		});  
+		JButton btnNewButton_1 = new JButton("Editar produto");
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBounds(48, 203, 211, 31);
+		btnNewButton_1.setBounds(48, 211, 211, 31);
 		panel.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("Editar produto");
+		JButton btnNewButton_2 = new JButton("Excluir produto");
 		btnNewButton_2.setBackground(new Color(0, 128, 128));
 		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBounds(48, 241, 211, 31);
+		btnNewButton_2.setBounds(48, 249, 211, 31);
 		panel.add(btnNewButton_2);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("F:\\eclipse-workspace\\Inter\\icons\\interlog_teal64.png"));
-		lblNewLabel_2.setBounds(121, 368, 64, 64);
+		lblNewLabel_2.setBounds(121, 359, 64, 64);
 		panel.add(lblNewLabel_2);
-		
-		JButton btnNewButton_4 = new JButton("Excluir produto");
-		btnNewButton_4.setForeground(new Color(255, 255, 255));
-		btnNewButton_4.setBackground(new Color(0, 128, 128));
-		btnNewButton_4.setBounds(48, 278, 211, 31);
-		panel.add(btnNewButton_4);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(350, 11, 624, 489);
@@ -118,13 +120,30 @@ public class JHomeAdmin extends JFrame {
 		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		DefaultTableModel model = new DefaultTableModel();
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID", "Nome", "Valor", "Estoque"
+		table.setModel(model);
+		model.addColumn("ID");
+        model.addColumn("Nome");
+        model.addColumn("Estoque");
+        model.addColumn("Valor");
+		
+		try {
+			Connection conn = JConnection.createConnection();
+			if (conn != null) {
+				String sqlconsult = "SELECT * FROM produtos";
+				PreparedStatement ps = conn.prepareStatement(sqlconsult);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					int id = rs.getInt("IDProduto");
+					String nome = rs.getString("NomeProduto");
+					int estoque = rs.getInt("QuantidadeEstoque");
+					int valor = rs.getInt("Valor");
+					model.addRow(new Object[]{id, nome, valor,estoque});
+				}
 			}
-		));
+		}catch (SQLException f) {
+			f.printStackTrace(); // Lida com exceções, se ocorrerem
+		}
 	}
 }
