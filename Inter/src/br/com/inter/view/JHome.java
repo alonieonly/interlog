@@ -109,17 +109,6 @@ public class JHome extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(10, 25, 477, 30);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton_3 = new JButton("Pesquisar");
-		btnNewButton_3.setBackground(new Color(0, 128, 128));
-		btnNewButton_3.setForeground(new Color(255, 255, 255));
-		btnNewButton_3.setBounds(495, 25, 119, 30);
-		panel_1.add(btnNewButton_3);
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 66, 604, 393);
 		panel_1.add(scrollPane);
