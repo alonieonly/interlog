@@ -9,7 +9,7 @@ public class JConnection {
     }
 
     public static Connection createConnection() throws SQLException{
-		String url = "jdbc:mysql://localhost:3306/interdados"; //Nome da base de dados
+		String url = "jdbc:mysql://localhost:3306/inter"; //Nome da base de dados
 		String user = "root"; //nome do usuário do MySQL
 		String password = ""; //senha do MySQL
         Connection conexao = null;
