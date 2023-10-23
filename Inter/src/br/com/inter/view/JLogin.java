@@ -1,18 +1,24 @@
 package br.com.inter.view;
-
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
 
 public class JLogin extends JFrame {
 
@@ -20,7 +26,6 @@ public class JLogin extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtLogin;
 	private JPasswordField passwordField;
-
 	/**
 	 * Launch the application.
 	 */
@@ -91,6 +96,34 @@ public class JLogin extends JFrame {
 		login_panel.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("Entrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(lblNewLabel_1.getText()!=null && !lblNewLabel_1.getText().isEmpty() && lblNewLabel_2.getText()!=null && !lblNewLabel_2.getText().isEmpty()) {
+					try {
+						Connection conn = JConnection.createConnection();
+						String sqlconsult = "SELECT * FROM funcionarios WHERE Usuario=?";
+						PreparedStatement ps = conn.prepareStatement(sqlconsult);
+						ps.setString(1,lblNewLabel_1.getText());
+						ResultSet rs = ps.executeQuery();
+						while(rs.next()){
+							System.out.println(rs.getString("Senha"));
+							// dispose();
+							// JHome jPrincipal = new JHome();
+							// jPrincipal.setLocationRelativeTo(jPrincipal);
+							// jPrincipal.setVisible(true);
+						}
+					}catch (SQLException f) {
+						f.printStackTrace(); // Lida com exceções, se ocorrerem
+					}
+
+					
+					
+				}else {
+					JOptionPane.showMessageDialog(btnNewButton, "Verifique as informações", "Aviso", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(0, 128, 128));
 		btnNewButton.setBounds(90, 425, 127, 23);
@@ -107,7 +140,7 @@ public class JLogin extends JFrame {
 		logo_panel.setLayout(null);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("F:\\eclipse-workspace\\Inter\\icons\\interlog.png"));
+		lblNewLabel_3.setIcon(new ImageIcon("C:\\Inter\\icons\\interlog.png"));
 		lblNewLabel_3.setBounds(188, 122, 267, 266);
 		logo_panel.add(lblNewLabel_3);
 		
