@@ -22,39 +22,10 @@ O InterLOG fornece as seguintes funcionalidades:
    - Cadastro de novos usuários, com a capacidade de atribuir permissões de administrador do sistema.
    - Controle de acessos e permissões para garantir a segurança dos dados.
 
-## 🛠️ Instalação
-
-Para começar a usar o InterLOG em seu ambiente local, siga os passos abaixo:
-
-1. **Clone o repositório:**
-
-    ```bash
-    git clone https://github.com/seu-nome-de-usuario/InterLOG.git
-    ```
-
-2. **Acesse o diretório do projeto:**
-
-    ```bash
-    cd InterLOG
-    ```
-
-3. **Instale as dependências:**
-
-    ```bash
-    npm install
-    ```
-
-4. **Inicie o servidor:**
-
-    ```bash
-    npm start
-    ```
-
-Certifique-se de que todas as dependências estejam configuradas corretamente antes de iniciar o servidor.
 
 ## 💻 Uso
 
-Após a instalação, você pode acessar o sistema e começar a usar as funcionalidades do InterLOG. Certifique-se de que o servidor esteja em execução e acesse a interface do usuário pelo navegador.
+Você poderá salvar o repositório como preferir e executar o código na sua IDE, Certifique-se de instalar todas as dependências do Java e Banco de dados MySQL.
 
 ## 🤝 Contribuição
 
