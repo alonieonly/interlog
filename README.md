@@ -8,7 +8,7 @@
 
 ## 📋 Descrição
 
-O **InterLOG** é um sistema desenvolvido como parte da avaliação interdisciplinar do 2º período do curso de Análise de Sistemas. Ele oferece uma solução abrangente para a gestão eficiente da logística interna em empresas.
+O **InterLOG** é um sistema desenvolvido como parte da avaliação interdisciplinar do 2º período do curso de Análise de Sistemas. Ele oferece uma solução simples para a gestão eficiente da logística interna em empresas.
 
 ## 🚀 Funcionalidades Principais
 
@@ -16,7 +16,7 @@ O InterLOG fornece as seguintes funcionalidades:
 
 1. **Gestão de Produtos 📦:**
    - Criação, edição e exclusão de produtos.
-   - Rastreamento de estoque e informações detalhadas sobre cada item.
+   - Informações detalhadas sobre cada item.
 
 2. **Gerenciamento de Usuários 👤:**
    - Cadastro de novos usuários, com a capacidade de atribuir permissões de administrador do sistema.
