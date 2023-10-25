@@ -110,7 +110,7 @@ public class JLogin extends JFrame {
 							ps.setString(1,txtLogin.getText());
 							ps.setString(2,String.valueOf(passwordField.getPassword()));
 							ResultSet rs = ps.executeQuery();
-							if (rs != null) {
+							if (rs.next()) {
 								while(rs.next()){
 									if (rs.getInt("isadmin")==1) {
 										dispose();
@@ -123,8 +123,6 @@ public class JLogin extends JFrame {
 										jPrincipal.setLocationRelativeTo(jPrincipal);
 										jPrincipal.setVisible(true);
 									}
-										
-									
 								}
 							} else {
 								JOptionPane.showMessageDialog(btnNewButton, "Usuário inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
