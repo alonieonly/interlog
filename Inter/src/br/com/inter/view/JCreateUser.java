@@ -142,5 +142,19 @@ public class JCreateUser extends JFrame {
 		backButton.setForeground(new Color(0, 128, 128));
 		backButton.setBounds(48, 348, 211, 37);
 		panel.add(backButton);
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				if (isadmin) {
+					JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
+					jPrincipal.setLocationRelativeTo(jPrincipal);
+					jPrincipal.setVisible(true);
+				} else {
+					JHome jPrincipal = new JHome(isadmin);
+					jPrincipal.setLocationRelativeTo(jPrincipal);
+					jPrincipal.setVisible(true);
+				}
+			}	
+		});
 	}
 }

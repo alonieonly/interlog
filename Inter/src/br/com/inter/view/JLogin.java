@@ -110,23 +110,21 @@ public class JLogin extends JFrame {
 							ps.setString(1,txtLogin.getText());
 							ps.setString(2,String.valueOf(passwordField.getPassword()));
 							ResultSet rs = ps.executeQuery();
-							if (rs.next()) {
-								while(rs.next()){
-									if (rs.getInt("isadmin")==1) {
-										dispose();
-										JHomeAdmin jPrincipal = new JHomeAdmin(true);
-										jPrincipal.setLocationRelativeTo(jPrincipal);
-										jPrincipal.setVisible(true);
-									} else {
-										dispose();
-										JHome jPrincipal = new JHome(false);
-										jPrincipal.setLocationRelativeTo(jPrincipal);
-										jPrincipal.setVisible(true);
-									}
+							
+							while(rs.next()){
+								if (rs.getInt("isadmin")==1) {
+									dispose();
+									JHomeAdmin jPrincipal = new JHomeAdmin(true);
+									jPrincipal.setLocationRelativeTo(jPrincipal);
+									jPrincipal.setVisible(true);
+								} else {
+									dispose();
+									JHome jPrincipal = new JHome(false);
+									jPrincipal.setLocationRelativeTo(jPrincipal);
+									jPrincipal.setVisible(true);
 								}
-							} else {
-								JOptionPane.showMessageDialog(btnNewButton, "Usuário inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
 							}
+
 						}
 					}catch (SQLException f) {
 						f.printStackTrace(); // Lida com exceções, se ocorrerem

@@ -104,7 +104,14 @@ public class JHome extends JFrame {
 		exitButton.setForeground(new Color(255, 255 ,255));
 		exitButton.setBounds(48, 318, 211, 31);
 		panel.add(exitButton);		
-				
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				JLogin frame = new JLogin();
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
+			}	
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("Inter\\icons\\interlog_teal64.png"));
@@ -146,9 +153,5 @@ public class JHome extends JFrame {
 		}catch (SQLException f) {
 			f.printStackTrace(); // Lida com exceções, se ocorrerem
 		}
-	}
-	public void ClearTable() {
-		table.revalidate();
-        table.repaint();
 	}
 }
