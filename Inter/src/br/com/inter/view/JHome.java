@@ -97,7 +97,14 @@ public class JHome extends JFrame {
 				jPrincipal.setLocationRelativeTo(jPrincipal);
 				jPrincipal.setVisible(true);
 			}
-		}); 
+		});
+		
+		JButton exitButton = new JButton ("Sair");
+		exitButton.setBackground(new Color(0, 128, 128));
+		exitButton.setForeground(new Color(255, 255 ,255));
+		exitButton.setBounds(48, 318, 211, 31);
+		panel.add(exitButton);		
+				
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("Inter\\icons\\interlog_teal64.png"));

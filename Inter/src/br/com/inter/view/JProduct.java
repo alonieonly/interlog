@@ -141,6 +141,11 @@ public class JProduct extends JFrame {
 					JOptionPane.showMessageDialog(txtNomeDoProduto, "Nome inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
 				}		
 			}
-		});  
+		});
+		
+		JButton backButton = new JButton("Voltar");
+		backButton.setForeground(new Color(0, 128, 128));
+		backButton.setBounds(48, 368, 211, 31);
+		panel.add(backButton);
 	}
 }
