@@ -117,11 +117,13 @@ public class JLogin extends JFrame {
 									JHomeAdmin jPrincipal = new JHomeAdmin(true);
 									jPrincipal.setLocationRelativeTo(jPrincipal);
 									jPrincipal.setVisible(true);
+									jPrincipal.throwalerts();
 								} else {
 									dispose();
 									JHome jPrincipal = new JHome(false);
 									jPrincipal.setLocationRelativeTo(jPrincipal);
 									jPrincipal.setVisible(true);
+									jPrincipal.throwalerts();
 								}
 							}
 

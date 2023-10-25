@@ -106,30 +106,38 @@ public class JProduct extends JFrame {
 				if(txtNomeDoProduto.getText() != null && !txtNomeDoProduto.getText().isEmpty()) {
 					if (textField_1.getText() != null && !textField_1.getText().isEmpty()) {
 						if (textField_2.getText() != null && !textField_2.getText().isEmpty()) {
-							try {
-								Connection conn = JConnection.createConnection();
-								if (conn != null) {
-									String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES(?,?,?)";
-									// String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES('alonie','1','1')";
-									PreparedStatement ps = conn.prepareStatement(sqlconsult);
-									ps.setString(1,txtNomeDoProduto.getText().toString());
-									ps.setInt(2,Integer.parseInt(textField_2.getText()));
-									ps.setInt(3,Integer.parseInt(textField_1.getText()));
-									ps.execute();
-									conn.commit();
-									dispose();
-									if (isadmin) {
-										JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
-										jPrincipal.setLocationRelativeTo(jPrincipal);
-										jPrincipal.setVisible(true);
-									} else {
-										JHome jPrincipal = new JHome(isadmin);
-										jPrincipal.setLocationRelativeTo(jPrincipal);
-										jPrincipal.setVisible(true);
+							if (Integer.parseInt(textField_2.getText()) <= 0) {
+								if (Integer.parseInt(textField_2.getText()) <= 0) {
+									try {
+										Connection conn = JConnection.createConnection();
+										if (conn != null) {
+											String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES(?,?,?)";
+											// String sqlconsult = "INSERT INTO produtos (NomeProduto,QuantidadeEstoque,Valor) VALUES('alonie','1','1')";
+											PreparedStatement ps = conn.prepareStatement(sqlconsult);
+											ps.setString(1,txtNomeDoProduto.getText().toString());
+											ps.setInt(2,Integer.parseInt(textField_2.getText()));
+											ps.setInt(3,Integer.parseInt(textField_1.getText()));
+											ps.execute();
+											conn.commit();
+											dispose();
+											if (isadmin) {
+												JHomeAdmin jPrincipal = new JHomeAdmin(isadmin);
+												jPrincipal.setLocationRelativeTo(jPrincipal);
+												jPrincipal.setVisible(true);
+											} else {
+												JHome jPrincipal = new JHome(isadmin);
+												jPrincipal.setLocationRelativeTo(jPrincipal);
+												jPrincipal.setVisible(true);
+											}
+										}
+									}catch (SQLException f) {
+										f.printStackTrace(); // Lida com exceções, se ocorrerem
 									}
+								} else {
+									JOptionPane.showMessageDialog(textField_2, "Não é valido letras e caracteres especiais!", "Aviso", JOptionPane.WARNING_MESSAGE);
 								}
-							}catch (SQLException f) {
-								f.printStackTrace(); // Lida com exceções, se ocorrerem
+							} else {
+								JOptionPane.showMessageDialog(textField_2, "Não é valido letras e caracteres especiais!", "Aviso", JOptionPane.WARNING_MESSAGE);
 							}
 						} else {
 							JOptionPane.showMessageDialog(textField_2, "Quantidade inválida!", "Aviso", JOptionPane.WARNING_MESSAGE);

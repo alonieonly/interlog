@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -148,6 +150,27 @@ public class JHome extends JFrame {
 					int estoque = rs.getInt("QuantidadeEstoque");
 					int valor = rs.getInt("Valor");
 					model.addRow(new Object[]{id, nome, estoque,valor});
+				}
+			}
+		}catch (SQLException f) {
+			f.printStackTrace(); // Lida com exceções, se ocorrerem
+		}
+	}
+	public void throwalerts() {
+		try {
+			Connection conn = JConnection.createConnection();
+			if (conn != null) {
+				String sqlconsult = "SELECT * FROM produtos";
+				PreparedStatement ps = conn.prepareStatement(sqlconsult);
+				ResultSet rs = ps.executeQuery();
+				JPanel painelerro = new JPanel();
+				while (rs.next()) {
+					int id = rs.getInt("IDProduto");
+					String nome = rs.getString("NomeProduto");
+					int estoque = rs.getInt("QuantidadeEstoque");
+					if (estoque <= 3 ) {
+						JOptionPane.showMessageDialog(painelerro, "Alerta de baixo estoque!\nID: "+id+" ;\nNome: "+nome+"\nEstoque atual: "+estoque, "Aviso", JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			}
 		}catch (SQLException f) {
