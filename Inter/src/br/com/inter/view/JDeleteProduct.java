@@ -108,7 +108,12 @@ public class JDeleteProduct extends JFrame {
 					JOptionPane.showMessageDialog(textField, "ID inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
 				}
 			}
-		}); 
+		});
+		
+		JButton backButton = new JButton("Voltar");
+		backButton.setForeground(new Color(0, 128, 128));
+		backButton.setBounds(48, 305, 211, 37);
+		panel.add(backButton);
 	}
 
 }

@@ -74,6 +74,11 @@ public class JEditProduct extends JFrame {
 		lblNewLabel_2.setBounds(48, 90, 73, 14);
 		panel.add(lblNewLabel_2);
 		
+		JButton backButton = new JButton("Voltar");
+		backButton.setForeground(new Color(0, 128, 128));
+		backButton.setBounds(48, 398, 211, 37);
+		panel.add(backButton);
+		
 		PNametextField = new JTextField();
 		PNametextField.setColumns(10);
 		PNametextField.setBounds(48, 174, 211, 31);

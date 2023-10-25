@@ -65,7 +65,7 @@ public class JHomeAdmin extends JFrame {
 		JButton btnNewButton = new JButton("Registrar funcionário");
 		btnNewButton.setBackground(new Color(0, 128, 128));
 		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBounds(48, 165, 211, 31);
+		btnNewButton.setBounds(48, 155, 211, 31);
 		panel.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +79,7 @@ public class JHomeAdmin extends JFrame {
 		JButton btnNewButton_5 = new JButton("Registrar produto");
 		btnNewButton_5.setBackground(new Color(0, 128, 128));
 		btnNewButton_5.setForeground(new Color(255, 255, 255));
-		btnNewButton_5.setBounds(48, 203, 211, 31);
+		btnNewButton_5.setBounds(48, 193, 211, 31);
 		panel.add(btnNewButton_5);
 
 		btnNewButton_5.addActionListener(new ActionListener() {
@@ -93,7 +93,7 @@ public class JHomeAdmin extends JFrame {
 		JButton btnNewButton_1 = new JButton("Editar produto");
 		btnNewButton_1.setBackground(new Color(0, 128, 128));
 		btnNewButton_1.setForeground(new Color(255, 255, 255));
-		btnNewButton_1.setBounds(48, 241, 211, 31);
+		btnNewButton_1.setBounds(48, 231, 211, 31);
 		panel.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -107,7 +107,7 @@ public class JHomeAdmin extends JFrame {
 		JButton btnNewButton_2 = new JButton("Excluir produto");
 		btnNewButton_2.setBackground(new Color(0, 128, 128));
 		btnNewButton_2.setForeground(new Color(255, 255, 255));
-		btnNewButton_2.setBounds(48, 278, 211, 31);
+		btnNewButton_2.setBounds(48, 268, 211, 31);
 		panel.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -116,7 +116,13 @@ public class JHomeAdmin extends JFrame {
 				jPrincipal.setLocationRelativeTo(jPrincipal);
 				jPrincipal.setVisible(true);
 			}
-		}); 
+		});
+		
+		JButton exitButton = new JButton ("Sair");
+		exitButton.setBackground(new Color(0, 128, 128));
+		exitButton.setForeground(new Color(255, 255 ,255));
+		exitButton.setBounds(48, 308, 211, 31);
+		panel.add(exitButton);		
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon("Inter\\icons\\interlog_teal64.png"));

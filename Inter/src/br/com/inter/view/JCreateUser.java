@@ -136,6 +136,11 @@ public class JCreateUser extends JFrame {
 					JOptionPane.showMessageDialog(UsertextField, "Usuario inválido!", "Aviso", JOptionPane.WARNING_MESSAGE);
 				}	
 			}
-		});  
+		});
+		
+		JButton backButton = new JButton("Voltar");
+		backButton.setForeground(new Color(0, 128, 128));
+		backButton.setBounds(48, 348, 211, 37);
+		panel.add(backButton);
 	}
 }
